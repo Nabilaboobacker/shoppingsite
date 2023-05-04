@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    {% if category %}
+        {{product.name}} - Wildflowers
+    {% endif %}
+{% endblock %}
+{% block body %}
+<div class="row my_prod_row_class">
+    <div class="mx-auto">
+        <p> <a class="decor-none" href="{% url 'shoppingapp:allProdCat' %}">Home</a> | <a class="decor-none" href="{{product.category.get_url}}">{{product.category}}</a> | {{product.name}}</p>
+    </div>
+</div>
+<div>
+<br>
+<div class="row">
+    <div class="text-center col-12 col-sm-12 col-md-12 col-lg-6">
+        <div style="min-width:18rem;">
+            <img src="{{product.image.url}}" alt="{{product.name}}" height="260px" width="220px">
+        </div>
+    </div>
+        <div class="col-12 col-sm-12 col-md-12 col-lg-6">
+            <div>
+            <h1 class="my_prod_title"><b>{{product.name}}</b></h1>
+            <p>${{product.price}}</p>
+            <p class="my_title">Description</p>
+            <p class="text-justify my_prod_text">{{product.description}}</p>
+            {% if product.stock <= 0 %}
+            <p class="text-justify my_prod_text">Out of Stock</p>
+            {% else %}
+            <a class="btn btn-secondary" href="{% url 'cart:add_cart' product.id %}">Add to Cart</a>
+            {% endif %}
+        </div>
+</div>
+    </div>
+</div>
+{% endblock %}
